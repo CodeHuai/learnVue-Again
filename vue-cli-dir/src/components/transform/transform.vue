@@ -26,7 +26,6 @@ export default {
 <style scoped>
 .container{
   position: relative;
-  height: 100%;
 }
 .v-enter-active {
   transition: all 3s ease;
