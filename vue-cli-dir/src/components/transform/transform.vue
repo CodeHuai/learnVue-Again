@@ -24,9 +24,10 @@ export default {
 </script>
 
 <style scoped>
-.container{
+.container {
   position: relative;
 }
+
 .v-enter-active {
   transition: all 3s ease;
 }
