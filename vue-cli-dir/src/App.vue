@@ -1,16 +1,27 @@
 <template>
-  <transform></transform>
+  <button @click="jump('/helloWorld')">动画</button>
+  <button @click="jump('/home')">home</button>
+
+  <router-view></router-view>
 </template>
 
 <script>
-import transform from './components/transform/transform.vue'
-
+import { useRouter } from 'vue-router'
 export default {
   name: 'App',
-  components: {
-    transform
-  },
+  setup() {
+    const router = useRouter()
+
+    const jump = function (flag) {
+      router.push(flag)
+    }
+    return {
+      jump
+    }
+  }
 }
 </script>
 
-<style></style>
+<style>
+
+</style>
