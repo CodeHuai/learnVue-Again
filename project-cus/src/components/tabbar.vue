@@ -1,28 +1,32 @@
 <template>
-  <div class="tab-bar">
-    <div
+  <van-tabbar v-model="state.clickFlag" route>
+    <van-tabbar-item
       v-for="item in state.tabbarList"
-      :key="item.routeName"
-      class="tab-bar-item"
-      @click="jump(item.routeName)"
+      :key="item.routeUrl"
+      :name="item.routeUrl"
+      :to="item.routeUrl"
+      icon="home-o"
+      replace
     >
-      <img
-        :alt="item.name"
-        :src="
-          state.clickFlag === item.routeName
-            ? item.imgActiveUrl
-            : item.imgInactiveUrl
-        "
-        class="tab-bar-active-icon"
-      />
+      <template #icon>
+        <img
+          :alt="item.name"
+          :src="
+            state.clickFlag === item.routeUrl
+              ? item.imgActiveUrl
+              : item.imgInactiveUrl
+          "
+          class="tab-bar-active-icon"
+        />
+      </template>
       <span
         :class="
-          state.clickFlag === item.routeName ? 'fontColor' : 'defaultColor'
+          state.clickFlag === item.routeUrl ? 'tarball-text' : 'tarball-default'
         "
         >{{ item.name }}</span
       >
-    </div>
-  </div>
+    </van-tabbar-item>
+  </van-tabbar>
 </template>
 
 <script lang="ts">
@@ -37,45 +41,39 @@ export default defineComponent({
       clickFlag: "home",
       tabbarList: [
         {
-          routeName: "home",
+          routeUrl: "home",
           name: "首页",
-          imgActiveUrl: getAssetsUrl(
-            "../assets/img/tabbar/tab_home_active.png"
-          ),
-          imgInactiveUrl: getAssetsUrl("../assets/img/tabbar/tab_home.png"),
+          imgActiveUrl: getAssetsUrl("tabbar/tab_home_active.png"),
+          imgInactiveUrl: getAssetsUrl("tabbar/tab_home.png"),
         },
         {
-          routeName: "favor",
+          routeUrl: "favor",
           name: "收藏",
-          imgActiveUrl: getAssetsUrl(
-            "../assets/img/tabbar/tab_favor_active.png"
-          ),
-          imgInactiveUrl: getAssetsUrl("../assets/img/tabbar/tab_favor.png"),
+          imgActiveUrl: getAssetsUrl("tabbar/tab_favor_active.png"),
+          imgInactiveUrl: getAssetsUrl("tabbar/tab_favor.png"),
         },
         {
-          routeName: "order",
+          routeUrl: "order",
           name: "订单",
-          imgActiveUrl: getAssetsUrl(
-            "../assets/img/tabbar/tab_order_active.png"
-          ),
-          imgInactiveUrl: getAssetsUrl("../assets/img/tabbar/tab_order.png"),
+          imgActiveUrl: getAssetsUrl("tabbar/tab_order_active.png"),
+          imgInactiveUrl: getAssetsUrl("tabbar/tab_order.png"),
         },
         {
-          routeName: "message",
+          routeUrl: "message",
           name: "消息",
-          imgActiveUrl: getAssetsUrl("../assets/img/tabbar/tab_message.png"),
-          imgInactiveUrl: getAssetsUrl("../assets/img/tabbar/tab_message.png"),
+          imgActiveUrl: getAssetsUrl("tabbar/tab_message.png"),
+          imgInactiveUrl: getAssetsUrl("tabbar/tab_message.png"),
         },
       ],
     });
 
     /**
      * 用于Tabbar的点击跳转
-     * @param routeName：对应的路由配置中的组件名称
+     * @param routeUrl：对应的路由配置中的组件名称
      */
-    const jump = function (routeName) {
-      state.value.clickFlag = routeName;
-      router.push(routeName);
+    const jump = function (routeUrl) {
+      state.value.clickFlag = routeUrl;
+      router.push(routeUrl);
     };
     return {
       jump,
@@ -86,39 +84,11 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.tab-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  display: flex;
-  overflow: hidden;
-  border-top: 1px solid #f45756;
-  box-shadow: 0 -1px 2px -1px #f45756;
+.tarball-text {
+  color: #f69743;
+}
 
-  .tab-bar-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      width: 36px;
-    }
-
-    span {
-      font-size: 14px;
-    }
-
-    .defaultColor {
-      color: #999;
-    }
-
-    .fontColor {
-      color: #f45756;
-    }
-  }
+.tarball-default {
+  color: #999;
 }
 </style>

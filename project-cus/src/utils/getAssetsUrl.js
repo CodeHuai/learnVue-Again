@@ -4,5 +4,5 @@
  * @returns {string} vite处理后的地址
  */
 export const getAssetsUrl = (image) => {
-  return new URL(image, import.meta.url).href;
+  return new URL(`../assets/img/${image}`, import.meta.url).href;
 };
