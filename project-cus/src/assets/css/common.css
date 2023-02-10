@@ -7,3 +7,43 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.noMargin {
+    margin: 0 !important;
+}
+
+.noMarginLeft {
+    margin-left: 0 !important;
+}
+
+.noMarginTop {
+    margin-top: 0 !important;
+}
+
+.noMarginRight {
+    margin-right: 0 !important;
+}
+
+.noMarginBottom {
+    margin-bottom: 0 !important;
+}
+
+.noPadding {
+    padding: 0 !important;
+}
+
+.noPaddingTop {
+    padding-top: 0 !important;
+}
+
+.noPaddingRight {
+    padding-right: 0 !important;
+}
+
+.noPaddingBottom {
+    padding-bottom: 0 !important;
+}
+
+.noPaddingLeft {
+    padding-left: 0 !important;
+}

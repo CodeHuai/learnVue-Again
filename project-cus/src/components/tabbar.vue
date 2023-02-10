@@ -38,28 +38,28 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const state = ref({
-      clickFlag: "home",
+      clickFlag: "Home",
       tabbarList: [
         {
-          routeUrl: "home",
+          routeUrl: "Home",
           name: "首页",
           imgActiveUrl: getAssetsUrl("tabbar/tab_home_active.png"),
           imgInactiveUrl: getAssetsUrl("tabbar/tab_home.png"),
         },
         {
-          routeUrl: "favor",
+          routeUrl: "Favor",
           name: "收藏",
           imgActiveUrl: getAssetsUrl("tabbar/tab_favor_active.png"),
           imgInactiveUrl: getAssetsUrl("tabbar/tab_favor.png"),
         },
         {
-          routeUrl: "order",
+          routeUrl: "Order",
           name: "订单",
           imgActiveUrl: getAssetsUrl("tabbar/tab_order_active.png"),
           imgInactiveUrl: getAssetsUrl("tabbar/tab_order.png"),
         },
         {
-          routeUrl: "message",
+          routeUrl: "Message",
           name: "消息",
           imgActiveUrl: getAssetsUrl("tabbar/tab_message.png"),
           imgInactiveUrl: getAssetsUrl("tabbar/tab_message.png"),

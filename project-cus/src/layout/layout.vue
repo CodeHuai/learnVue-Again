@@ -22,7 +22,9 @@ export default defineComponent({
 <style lang="less" scoped>
 .layout-container {
   position: relative;
+  padding-bottom: 100px;
   overflow: hidden;
   overflow-y: auto;
+  flex: 1;
 }
 </style>

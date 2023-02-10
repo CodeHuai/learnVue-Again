@@ -22,34 +22,102 @@
       </div>
     </div>
 
-    <!--  关键字  -->
-    <!--    <div class="key-world">-->
-    <!--      <van-cell-group inset>-->
-    <!--        <van-field v-model="state.keyworld" placeholder="请输入用户名" />-->
-    <!--      </van-cell-group>-->
-    <!--    </div>-->
+    <!-- 价格不限、人数不限  -->
+    <div class="detail-info">
+      <div class="price cus-width">
+        <van-field
+          v-model="state.price"
+          placeholder="价格不变"
+          class="noPaddingLeft noPaddingRight"
+        />
+      </div>
+      <div class="person-count cus-width">
+        <van-field
+          input-align="right"
+          v-model="state.personCount"
+          placeholder="人数不限"
+          class="noPaddingLeft noPaddingRight"
+        />
+      </div>
+    </div>
+
+    <van-field
+      v-model="state.address"
+      placeholder="关键字/位置/名宿命"
+      class="noPaddingLeft noPaddingRight"
+    />
 
     <!--    城市-->
     <div class="city-block">
-      <span></span>
+      <span
+        @click="handleClick(item)"
+        class="address-item"
+        :style="{
+          color: item.tagText.color,
+          background: item.tagText.background.color,
+        }"
+        v-for="(item, index) in hotSuggests"
+        :key="index"
+        >{{ item.tagText.text }}</span
+      >
     </div>
+
+    <!--  开始搜索  -->
+    <van-button round type="warning">开始搜索</van-button>
+  </div>
+
+  <!--  滚动菜单  -->
+  <div class="scroll-wrapper" ref="scrollRef">
+    <div class="scroll-content">
+      <div v-for="item in categories" :key="item.id" class="content-item">
+        <img :src="item.pictureUrl" alt="类型" />
+        <div class="text">{{ item.title }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!--  热门精选-->
+  <div class="hot-select">
+    <div class="hot-title">热门精选</div>
+    <div class="all-select"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import { useHomeStore } from "@/stores/index";
+import BScroll from "@better-scroll/core";
+import { defineComponent, onMounted, ref, nextTick } from "vue";
+import { storeToRefs } from "pinia";
+import { useHomeStore } from "@/stores";
 
 export default defineComponent({
   setup() {
     const homeStore = useHomeStore();
+    const scrollRef = ref(null);
     const state = ref({
       keyworld: null,
-      hotSuggests: [],
+      price: null,
+      personCount: null,
+      address: null,
     });
-    state.value.hotSuggests = computed(() => homeStore.hotSuggests).value;
+    // 热门地点、图片滚动导航
+    const { hotSuggests, categories } = storeToRefs(homeStore);
+
+    const handleClick = function (item) {
+      console.log(item);
+    };
+
+    onMounted(() => {
+      nextTick(() => {
+        new BScroll(".scroll-wrapper", { scrollX: true, probeType: 3 });
+      });
+    });
+
     return {
       state,
+      hotSuggests,
+      handleClick,
+      categories,
+      scrollRef,
     };
   },
 });
@@ -57,15 +125,15 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .search-box {
-  padding: 0 20px 10px 20px;
+  padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
 
   .location {
     display: flex;
     justify-content: space-between;
-    height: 40px;
-    line-height: 40px;
+    height: 50px;
+    line-height: 50px;
     font-size: 14px;
     color: #999999;
 
@@ -120,6 +188,64 @@ export default defineComponent({
         color: #000;
       }
     }
+  }
+
+  .detail-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cus-width {
+      width: 33.333333%;
+    }
+  }
+
+  .city-block {
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 10px;
+    color: #999999;
+
+    .address-item {
+      margin-bottom: 10px;
+      margin-right: 15px;
+      padding: 4px 4px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+  }
+}
+
+.scroll-wrapper {
+  position: relative;
+  width: 100%;
+  padding-left: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+
+  .scroll-content {
+    display: inline-block;
+
+    .content-item {
+      margin-right: 33px;
+      display: inline-block;
+      font-size: 10px;
+      color: #999999;
+      text-align: center;
+
+      img {
+        width: 32px;
+      }
+    }
+  }
+}
+.hot-select {
+  padding: 40px 20px 0 20px;
+  .hot-title {
+    font-size: 20px;
+    font-weight: bold;
   }
 }
 </style>
